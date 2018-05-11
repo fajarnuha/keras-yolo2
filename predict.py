@@ -86,14 +86,12 @@ def _main_(args):
 
     elif image_path[-1] == '/':
         for img in glob.glob(image_path+"*.jpg"):
-            fname = img.split("/")[-1]
-
-            image = cv2.imread(image_path)
+            image = cv2.imread(img)
             boxes = yolo.predict(image)
             image = draw_boxes(image, boxes, config['model']['labels'])
 
             print(len(boxes), 'boxes are found')
-            cv2.imwrite(image_path + fname[:-4] + '_detected' + fname[-4:], image)
+            cv2.imwrite(img[:-4] + '_detected' + img[-4:], image)
 
     else:
         image = cv2.imread(image_path)
